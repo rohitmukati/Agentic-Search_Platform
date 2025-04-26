@@ -1,14 +1,21 @@
+from backend.database import Base, engine
+from backend.models import User, Lead, SearchLog
+from backend.routes import auth
 from fastapi import FastAPI
-from routes import auth, leads, search
+
 
 app = FastAPI()
 
-# Attach route groups (modular)
-app.include_router(auth.router, prefix="/api/auth")
-app.include_router(leads.router, prefix="/api/leads")
-app.include_router(search.router, prefix="/api/search")
+Base.metadata.create_all(bind=engine)
 
-# Basic health check route
+# Middleware for CORS
 @app.get("/api/health")
 def health_check():
-    return {"status": "ok", "message": "Backend is running perfectly"}
+    return {"status": "ok"}
+
+
+# Routers
+
+app.include_router(auth.router, prefix="/api/auth")
+# app.include_router(leads.router, prefix="/api/leads")
+
