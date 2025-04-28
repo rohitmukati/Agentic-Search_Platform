@@ -2,10 +2,10 @@ from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Text
 from sqlalchemy.dialects.postgresql import UUID, ARRAY
 import uuid
 from datetime import datetime
-from backend.database import Base   # ✅ Only this import
+from backend.database import Base
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "users"  # 🔥 lowercase kar diya
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
@@ -15,7 +15,7 @@ class User(Base):
 class Lead(Base):
     __tablename__ = "leads"
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))  # 🔥 correct table name
     company = Column(String)
     contact = Column(String)
     email = Column(String)
@@ -34,4 +34,4 @@ class SearchLog(Base):
     industry = Column(String)
     countries = Column(ARRAY(String))
     services = Column(String)
-    timestamp = Column(DateTime, default=datetime.utcnow)
+    timestamp = Column(DateTime, default=datetime.utcnow)  # 🔥 comma hata diya

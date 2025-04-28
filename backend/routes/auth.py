@@ -44,4 +44,8 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
 
     # Create JWT token
     access_token = create_access_token(data={"sub": db_user.email})
-    return {"access_token": access_token}
+    return {
+    "access_token": access_token,
+    "token_type": "bearer"
+    }
+
