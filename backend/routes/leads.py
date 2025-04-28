@@ -1,11 +1,11 @@
-# leads.py
+# backend/routes/leads.py
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
+from typing import List, Optional
 from sqlalchemy.orm import Session
 from backend import models, schemas
 from backend.database import SessionLocal
-from backend.services.utils import get_current_user  # Ye authentication ke liye
-from typing import List
+from backend.services.utils import get_current_user
 
 router = APIRouter()
 
@@ -17,9 +17,15 @@ def get_db():
     finally:
         db.close()
 
-# Create a lead
+# ----------------------------------------
+# Create a new Lead
+# ----------------------------------------
 @router.post("/", response_model=schemas.Lead)
-def create_lead(lead: schemas.LeadCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
+def create_lead(
+    lead: schemas.LeadCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
     db_lead = models.Lead(
         user_id=current_user.id,
         company=lead.company,
@@ -36,24 +42,65 @@ def create_lead(lead: schemas.LeadCreate, db: Session = Depends(get_db), current
     db.refresh(db_lead)
     return db_lead
 
-# Get all leads
+# ----------------------------------------
+# Get All Leads (with optional filters)
+# ----------------------------------------
 @router.get("/", response_model=List[schemas.Lead])
-def get_leads(db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    leads = db.query(models.Lead).filter(models.Lead.user_id == current_user.id).all()
+def get_leads(
+    country: Optional[str] = Query(None),
+    status: Optional[str] = Query(None),
+    company: Optional[str] = Query(None),
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    query = db.query(models.Lead).filter(models.Lead.user_id == current_user.id)
+
+    if country:
+        query = query.filter(models.Lead.country.ilike(f"%{country}%"))
+
+    if status:
+        query = query.filter(models.Lead.status.ilike(f"%{status}%"))
+
+    if company:
+        query = query.filter(models.Lead.company.ilike(f"%{company}%"))
+
+    leads = query.all()
     return leads
 
-# Get a specific lead by ID
+# ----------------------------------------
+# Get a Specific Lead by ID
+# ----------------------------------------
 @router.get("/{lead_id}", response_model=schemas.Lead)
-def get_lead(lead_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id, models.Lead.user_id == current_user.id).first()
+def get_lead(
+    lead_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    lead = db.query(models.Lead).filter(
+        models.Lead.id == lead_id,
+        models.Lead.user_id == current_user.id
+    ).first()
+
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
+
     return lead
 
-# Update a lead
+# ----------------------------------------
+# Update a Lead
+# ----------------------------------------
 @router.put("/{lead_id}", response_model=schemas.Lead)
-def update_lead(lead_id: int, updated_lead: schemas.LeadCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id, models.Lead.user_id == current_user.id).first()
+def update_lead(
+    lead_id: int,
+    updated_lead: schemas.LeadCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    lead = db.query(models.Lead).filter(
+        models.Lead.id == lead_id,
+        models.Lead.user_id == current_user.id
+    ).first()
+
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
 
@@ -64,10 +111,20 @@ def update_lead(lead_id: int, updated_lead: schemas.LeadCreate, db: Session = De
     db.refresh(lead)
     return lead
 
-# Delete a lead
+# ----------------------------------------
+# Delete a Lead
+# ----------------------------------------
 @router.delete("/{lead_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_lead(lead_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
-    lead = db.query(models.Lead).filter(models.Lead.id == lead_id, models.Lead.user_id == current_user.id).first()
+def delete_lead(
+    lead_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    lead = db.query(models.Lead).filter(
+        models.Lead.id == lead_id,
+        models.Lead.user_id == current_user.id
+    ).first()
+
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
 
