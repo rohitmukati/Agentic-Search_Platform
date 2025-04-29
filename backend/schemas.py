@@ -1,7 +1,8 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, field_serializer
 # Lead-related schemas
 from typing import Optional
 from datetime import datetime
+from uuid import UUID
 
 # Input schema for signup
 class UserCreate(BaseModel):
@@ -35,7 +36,7 @@ class LeadCreate(BaseModel):
 # Lead output schema (response model)
 class Lead(BaseModel):
     id: int
-    user_id: str
+    user_id: UUID
     company: str
     contact: Optional[str]
     email: Optional[EmailStr]
@@ -46,5 +47,9 @@ class Lead(BaseModel):
     source: Optional[str]
     created_at: datetime
 
+    @field_serializer("user_id")
+    def serialize_user_id(self, user_id: UUID) -> str:
+        return str(user_id)
+
     class Config:
-        orm_mode = True
+        from_attributes = True

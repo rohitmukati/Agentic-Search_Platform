@@ -6,6 +6,9 @@ from sqlalchemy.orm import Session
 from backend import models, schemas
 from backend.database import SessionLocal
 from backend.services.utils import get_current_user
+import csv
+from fastapi.responses import StreamingResponse
+from io import StringIO
 
 router = APIRouter()
 
@@ -131,3 +134,47 @@ def delete_lead(
     db.delete(lead)
     db.commit()
     return
+
+
+
+# ----------------------------
+# CSV Export of Filtered Leads
+# ----------------------------
+@router.get("/export")
+def export_leads_csv(
+    country: Optional[str] = Query(None),
+    status: Optional[str] = Query(None),
+    company: Optional[str] = Query(None),
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    query = db.query(models.Lead).filter(models.Lead.user_id == current_user.id)
+
+    if country:
+        query = query.filter(models.Lead.country.ilike(f"%{country}%"))
+    if status:
+        query = query.filter(models.Lead.status.ilike(f"%{status}%"))
+    if company:
+        query = query.filter(models.Lead.company.ilike(f"%{company}%"))
+
+    leads = query.all()
+
+    # CSV content create karo
+    csv_file = StringIO()
+    csv_writer = csv.writer(csv_file)
+    
+    # Write headers
+    csv_writer.writerow(["ID", "Company", "Contact", "Email", "Title", "Country", "Services", "Status", "Source", "Created At"])
+    
+    # Write data rows
+    for lead in leads:
+        csv_writer.writerow([
+            lead.id, lead.company, lead.contact, lead.email,
+            lead.title, lead.country, lead.services, lead.status,
+            lead.source, lead.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        ])
+
+    csv_file.seek(0)
+    return StreamingResponse(csv_file, media_type="text/csv", headers={
+        "Content-Disposition": "attachment; filename=leads_export.csv"
+    })
