@@ -35,3 +35,8 @@ class SearchLog(Base):
     countries = Column(ARRAY(String))
     services = Column(String)
     timestamp = Column(DateTime, default=datetime.utcnow)  # 🔥 comma hata diya
+    
+    
+    class Config:
+        from_attributes = True
+        

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, field_serializer
 # Lead-related schemas
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 from uuid import UUID
 
@@ -50,6 +50,22 @@ class Lead(BaseModel):
     @field_serializer("user_id")
     def serialize_user_id(self, user_id: UUID) -> str:
         return str(user_id)
+
+    class Config:
+        from_attributes = True
+
+# Create Log
+class SearchLogCreate(BaseModel):
+    keywords: Optional[str]
+    industry: Optional[str]
+    countries: Optional[List[str]]
+    services: Optional[str]
+
+# Response
+class SearchLogOut(SearchLogCreate):
+    id: int
+    user_id: str
+    timestamp: datetime
 
     class Config:
         from_attributes = True

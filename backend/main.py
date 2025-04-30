@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from backend.database import Base, engine
 from backend.models import User, Lead, SearchLog
+from backend.routes import search_logs
 
 from backend.routes import auth
 
@@ -31,6 +32,7 @@ app.add_middleware(
 # API Routers
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(leads.router, prefix="/api/leads", tags=["Leads"])
+app.include_router(search_logs.router, prefix="/api/searchlogs", tags=["Search Logs"])
 
 
 # ✅ Swagger Auth: Add Bearer token support in Swagger UI
