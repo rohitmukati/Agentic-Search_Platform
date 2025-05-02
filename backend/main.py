@@ -64,3 +64,4 @@ def custom_openapi():
 
 # Set custom OpenAPI function
 app.openapi = custom_openapi
+

@@ -5,7 +5,8 @@ from datetime import datetime
 from backend.database import Base
 
 class User(Base):
-    __tablename__ = "users"  # 🔥 lowercase kar diya
+    __tablename__ = "users"  # Lowercase table name
+
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
@@ -14,8 +15,9 @@ class User(Base):
 
 class Lead(Base):
     __tablename__ = "leads"
+    
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))  # 🔥 correct table name
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))  # Corrected table name
     company = Column(String)
     contact = Column(String)
     email = Column(String)
@@ -28,15 +30,15 @@ class Lead(Base):
 
 class SearchLog(Base):
     __tablename__ = "search_logs"
+    
     id = Column(Integer, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     keywords = Column(String)
     industry = Column(String)
     countries = Column(ARRAY(String))
     services = Column(String)
-    timestamp = Column(DateTime, default=datetime.utcnow)  # 🔥 comma hata diya
-    
-    
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
+    # Optional: Define any configurations here if required in future
     class Config:
-        from_attributes = True
-        
+        orm_mode = True
