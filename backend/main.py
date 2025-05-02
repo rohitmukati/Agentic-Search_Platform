@@ -35,6 +35,7 @@ app.include_router(leads.router, prefix="/api/leads", tags=["Leads"])
 app.include_router(search_logs.router, prefix="/api/searchlogs", tags=["Search Logs"])
 
 
+
 # ✅ Swagger Auth: Add Bearer token support in Swagger UI
 def custom_openapi():
     if app.openapi_schema:
@@ -65,3 +66,5 @@ def custom_openapi():
 # Set custom OpenAPI function
 app.openapi = custom_openapi
 
+
+# uvicorn backend.main:app --reload
