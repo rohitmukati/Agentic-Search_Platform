@@ -4,6 +4,7 @@ from fastapi.openapi.utils import get_openapi
 from backend.database import Base, engine
 from backend.models import User, Lead, SearchLog
 from backend.routes import search_logs
+from backend.routes import search
 
 from backend.routes import auth
 
@@ -33,6 +34,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(leads.router, prefix="/api/leads", tags=["Leads"])
 app.include_router(search_logs.router, prefix="/api/searchlogs", tags=["Search Logs"])
+app.include_router(search.router, prefix="/api/search", tags=["Search"])
 
 
 
