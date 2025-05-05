@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Text
-from sqlalchemy.dialects.postgresql import UUID, ARRAY
+from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime
 from backend.database import Base
@@ -35,7 +35,7 @@ class SearchLog(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     keywords = Column(String)
     industry = Column(String)
-    countries = Column(ARRAY(String))
+    countries = Column(String)
     services = Column(String)
     timestamp = Column(DateTime, default=datetime.utcnow)
 

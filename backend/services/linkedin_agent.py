@@ -4,16 +4,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def run_linkedin_agent(keywords: str, industry: str, countries: list, services: str):
+def run_linkedin_agent(keywords: str, industry: str, countries: str, services: str):
     query = f"{keywords} {industry} {services} site:linkedin.com/in/"
     api_key = os.getenv("SERPAPI_KEY")
 
     if not api_key:
         raise Exception("SERPAPI_KEY not found in .env")
+    country_str = countries.strip() if countries else "India"
 
     search = GoogleSearch({
         "q": query,
-        "location": countries[0] if countries else "India",
+        "location": country_str,
         "hl": "en",
         "gl": "us",
         "api_key": api_key
@@ -33,7 +34,7 @@ def run_linkedin_agent(keywords: str, industry: str, countries: list, services: 
             "company": "LinkedIn Profile",
             "email": email,
             "title": title,
-            "country": countries[0],
+            "country": country_str,
             "source": "LinkedIn",
             "contact": link
         })

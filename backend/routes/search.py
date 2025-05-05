@@ -26,18 +26,18 @@ def run_search(
     current_user=Depends(get_current_user)
 ):
     try:
-        # ✅ Step 0: Log the search input
+        # ✅ Step 0: Log the search input directly (no join/split needed)
         services_str = (
             ",".join(search_input.services) if isinstance(search_input.services, list)
             else search_input.services
         )
-        countries_str = ",".join(search_input.countries)
+        countries_str = search_input.countries  # already a string now
 
         search_log = SearchLogModel(
             user_id=current_user.id,
             keywords=search_input.keywords,
             industry=search_input.industry,
-            countries=countries_str,
+            countries=countries_str,     # ✅ Store directly
             services=services_str,
         )
         db.add(search_log)

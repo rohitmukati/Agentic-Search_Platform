@@ -27,7 +27,7 @@ def create_search_log(
         user_id=current_user.id,
         keywords=log.keywords,
         industry=log.industry,
-        countries=log.countries,
+        countries=log.countries,  # ✅ single string now
         services=log.services
     )
     db.add(db_log)
@@ -62,7 +62,7 @@ def get_search_analytics(
 
     keywords = [log.keywords for log in logs if log.keywords]
     industries = [log.industry for log in logs if log.industry]
-    countries = [country for log in logs if log.countries for country in log.countries]
+    countries = [log.countries for log in logs if log.countries]  # ✅ changed to flat list
     services = [log.services for log in logs if log.services]
 
     return {

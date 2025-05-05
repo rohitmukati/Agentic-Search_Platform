@@ -4,16 +4,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def run_google_agent(keywords: str, industry: str, countries: list, services: str):
+def run_google_agent(keywords: str, industry: str, countries: str, services: str):
     query = f"{keywords} {industry} {services}"
     api_key = os.getenv("SERPAPI_KEY")
 
     if not api_key:
         raise Exception("SERPAPI_KEY not found in .env")
-
+    # Default country if not provided
+    country_str = countries.strip() if countries else "India"
+    
     search = GoogleSearch({
         "q": query,
-        "location": countries[0] if countries else "India",
+        "location": country_str,
         "hl": "en",
         "gl": "us",
         "api_key": api_key
@@ -31,7 +33,7 @@ def run_google_agent(keywords: str, industry: str, countries: list, services: st
             "company": domain,
             "email": email,
             "title": result.get("title", "Web Result"),
-            "country": countries[0],
+            "country": country_str,
             "source": "Google",
             "contact": result.get("link", "")
         }
