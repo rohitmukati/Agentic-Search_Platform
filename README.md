@@ -75,8 +75,8 @@ uvicorn backend.main:app --reload
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Agentic-Search-Platform.git
-   cd Agentic-Search-Platform
+   git clone https://github.com/rohitmukati/Agentic-Search_Platform.git
+   cd Agentic-Search_Platform
    ```
 
 2. Set up your environment and dependencies:
