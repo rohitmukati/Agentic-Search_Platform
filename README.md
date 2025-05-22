@@ -10,7 +10,9 @@ An AI-powered lead generation platform using FastAPI — extract, validate & ana
 - 🔍 **Agentic Search** – Autonomous agents to perform contextual searches  
 - 🧠 **Multi-platform Support** – Google & LinkedIn integration  
 - 📊 **Search Logging** – Tracks and stores query logs  
-- 📥 **Lead Management** – Capture and manage search results as leads  
+- 📥 **Lead Management** – Capture and manage search results as leads
+- ✅ **Downloadable Leads** – Search results can be exported as CSV for further use  
+
 
 ---
 
