@@ -97,6 +97,43 @@ uvicorn backend.main:app --reload
 
 ---
 
+
+### Explanation of Environment Variables and How to Get Them:
+
+- `DATABASE_URL`:  
+  The connection string for your PostgreSQL database.  
+  Format example:  
+  `postgresql://username:password@localhost:5432/agentic_db`  
+  Replace `username`, `password`, `host`, `port`, and `database_name` according to your database setup.
+
+- `SECRET_KEY`:  
+  A secret key used to sign JWT tokens securely.  
+  Make sure to generate a strong, random key (e.g., using `openssl rand -hex 32`).
+
+- `ALGORITHM`:  
+  The algorithm used to sign JWT tokens. Usually `HS256`.
+
+- `ACCESS_TOKEN_EXPIRE_MINUTES`:  
+  The expiry time for access tokens in minutes.
+
+- `SERPAPI_KEY`:  
+  API key for accessing Google Search via [SerpAPI](https://serpapi.com/).  
+  You can create a free or paid account on SerpAPI and get your API key from their dashboard.
+
+- `MAILBOXLAYER_KEY`:  
+  API key for email verification service via [MailboxLayer](https://mailboxlayer.com/).  
+  Register on MailboxLayer and obtain your API key from their dashboard.
+
+---
+
+### Security Recommendations:
+
+- Never commit your `.env` file to public repositories.  
+- Add `.env` to your `.gitignore` file to avoid accidental commits.  
+- Consider creating a `.env.example` file without real keys to share variable names with collaborators.
+
+
+
 ## ✅ API Documentation
 
 FastAPI automatically generates Swagger UI:
