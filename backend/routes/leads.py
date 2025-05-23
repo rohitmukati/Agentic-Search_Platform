@@ -176,3 +176,12 @@ def delete_lead(
     db.delete(lead)
     db.commit()
     return 
+
+
+def generate_leads_using_gemini(search_input):
+    query = f"Give top 5 companies in {search_input.industry} offering {search_input.services} in {search_input.countries}. Also mention their website link."
+    response_text = run_gemini_agent(query)
+
+    # Optional: Convert to structured leads using regex or LLM again
+    print(response_text)
+    return response_text

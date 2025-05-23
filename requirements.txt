@@ -2,7 +2,7 @@ fastapi
 uvicorn
 sqlalchemy
 psycopg2-binary
-# psycopg2-binary is a PostgreSQL adapter for Python
+
 pydantic
 python-multipart
 python-dotenv
@@ -12,13 +12,17 @@ email-validator
 pydantic[email]
 passlib[bcrypt]
 python-jose
-passlib
-bcrypt
-googlesearch-python
-serpapi
 
-# ✅ Suggested additions (for completeness)
-httpx                  # async HTTP client for API requests
-aiofiles               # for async file handling
-jinja2                 # for HTML rendering (if ever needed)
-itsdangerous           # useful for secure token generation
+bcrypt
+# ✅ CORRECT SerpAPI SDK (Only this one)
+google-search-results
+
+# ✅ Optional but useful additions
+httpx
+aiofiles
+jinja2
+itsdangerous
+langchain
+langchain_community
+openai
+google-generativeai

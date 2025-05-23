@@ -7,6 +7,7 @@ from backend.services.utils import get_current_user
 from backend.services.agent_controller import run_agents
 from backend.services.email_validator import validate_email
 from typing import List
+from backend.services.agent_controller_ai import run_agentic_pipeline
 
 router = APIRouter()
 
@@ -44,7 +45,7 @@ def run_search(
         db.commit()
 
         # Step 1: Run all agents with search input
-        raw_leads = run_agents(search_input)
+        raw_leads = run_agentic_pipeline(search_input)
 
         created_leads = []
 
