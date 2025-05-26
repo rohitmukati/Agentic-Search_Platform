@@ -8,12 +8,13 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 def run_gemini_agent(keywords: str, industry: str, countries: str, services: str):
     query = f"""
-    Generate a list of top 5 B2B companies in {countries} that offer {services} services in the {industry} industry.
-    For each company, return:
-    - Company name
-    - Website link
-    - Job title or description
+    Generate a list of the top 5 B2B companies based in {countries} that provide {services} services within the {industry} industry.
+    For each company, include the following details:
+    - Company Name
+    - Official Website URL
+    - Relevant Job Titles or a Brief Company Service Description
     """
+
 
     try:
         model = genai.GenerativeModel('gemini-pro')
