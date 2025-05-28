@@ -133,16 +133,16 @@ FastAPI generates docs automatically:
 ## 📸 Screenshots
 
 ### 🔐 Login Page
-![Login Page](assests\login_signup.png)
+<img src="assets/login_signup.png" width="600"/>
 
 ### 📊 Dashboard Overview
-![Dashboard](assests\Dashboard1.png)
+<img src="assets/Dashboard1.png" width="600"/>
 
 ### 🧠 Agentic Search Form
-![Search Form](assests\Search.png)
+<img src="assets/Search.png" width="600"/>
 
 ### 📥 Leads Table with Sorting & Export
-![Leads Table](assests\Leads.png)
+<img src="assets/Leads.png" width="600"/>
 
 ---
 ## 📌 Future Enhancements
