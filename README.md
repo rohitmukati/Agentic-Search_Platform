@@ -130,7 +130,21 @@ FastAPI generates docs automatically:
 - ✅ Sortable views for Leads & Logs  
 
 ---
+## 📸 Screenshots
 
+### 🔐 Login Page
+![Login Page](assests\login_signup.png)
+
+### 📊 Dashboard Overview
+![Dashboard](assests\Dashboard1.png)
+
+### 🧠 Agentic Search Form
+![Search Form](assests\Search.png)
+
+### 📥 Leads Table with Sorting & Export
+![Leads Table](assests\Leads.png)
+
+---
 ## 📌 Future Enhancements
 
 - [ ] Docker support  
