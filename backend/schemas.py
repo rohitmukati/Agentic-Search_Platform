@@ -85,3 +85,20 @@ class SearchInput(BaseModel):
     industry: str
     countries: str  # single string
     services: str
+    
+# -----------------------------
+# User Output Schema
+# -----------------------------
+class UserOut(BaseModel):
+    id: UUID
+    name: str
+    email: EmailStr
+    created_at: datetime
+
+    @field_serializer("id")
+    def serialize_id(self, v: UUID) -> str:
+        return str(v)
+
+    class Config:
+        from_attributes = True
+

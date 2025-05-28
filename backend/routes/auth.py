@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from backend import models, schemas
 from backend.database import SessionLocal
 from backend.services.utils import hash_password, verify_password, create_access_token
+from backend.schemas import UserOut
+from backend.services.utils import get_current_user
 
 router = APIRouter()
 
@@ -51,3 +53,9 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     "token_type": "bearer"  
     }
 
+@router.get("/me", response_model=UserOut)
+def read_current_user(current_user: models.User = Depends(get_current_user)):
+    """
+    Get the currently authenticated user's info.
+    """
+    return current_user

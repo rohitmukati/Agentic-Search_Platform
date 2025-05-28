@@ -1,17 +1,19 @@
 # 🤖 Agentic AI Search Platform
 
-An AI-powered lead generation platform using FastAPI — extract, validate & analyze leads from Google & LinkedIn.
+An AI-powered lead generation platform using **FastAPI** and **Streamlit** — extract, validate, search, and analyze leads from Google & LinkedIn with visual insights and downloadable reports.
 
 ---
 
 ## 🚀 Features
 
-- 🔐 **Authentication** – Secure login and token-based access  
-- 🔍 **Agentic Search** – Autonomous agents to perform contextual searches  
-- 🧠 **Multi-platform Support** – Google & LinkedIn integration  
-- 📊 **Search Logging** – Tracks and stores query logs  
-- 📥 **Lead Management** – Capture and manage search results as leads  
-- ✅ **Downloadable Leads** – Search results can be exported as CSV for further use  
+- 🔐 **Authentication** – Secure signup/login with JWT tokens  
+- 🔍 **Agentic Search** – Autonomous agents for intelligent lead queries  
+- 🧠 **Multi-platform Search** – Google + LinkedIn scraping supported  
+- 📊 **Interactive Dashboard** – Visualize top searches, services, industries, and more  
+- 📥 **Leads Table** – Sortable leads view with CSV export  
+- 📄 **Logs** – Track search queries with timestamps  
+- 📎 **CSV Export** – Export search results instantly  
+- 🖥️ **Frontend Interface** – Built with Streamlit for a minimal & responsive UI  
 
 ---
 
@@ -21,145 +23,131 @@ An AI-powered lead generation platform using FastAPI — extract, validate & ana
 Agentic-Search-Platform/
 ├── backend/
 │   ├── main.py                 # FastAPI entry point
-│   ├── database.py             # Database configuration
+│   ├── database.py             # DB setup
 │   ├── models.py               # SQLAlchemy models
 │   ├── schemas.py              # Pydantic schemas
-│   ├── routes/                 # API route handlers
-│   │   ├── auth.py             # Authentication routes
-│   │   ├── leads.py            # Lead management
-│   │   ├── search.py           # Search operations
-│   │   └── search_logs.py      # Logging user queries
-│   └── services/               # Business logic and agents
-│       ├── agent_controller.py # Manages multiple agents
-│       ├── google_agent.py     # Google search automation
-│       ├── linkedin_agent.py   # LinkedIn search automation
-│       └── utils.py            # Helper functions
-├── requirements.txt            # Python dependencies
-└── README.md                   # Project documentation
+│   ├── routes/
+│   │   ├── auth.py             # Auth APIs
+│   │   ├── leads.py            # Lead endpoints
+│   │   ├── search.py           # Search agents
+│   │   └── search_logs.py      # Logs API
+│   └── services/
+│       ├── agent_controller.py # Orchestrates search logic
+│       ├── google_agent.py     # Google search agent
+│       ├── linkedin_agent.py   # LinkedIn search agent
+│       └── utils.py            # Utilities
+├── frontend/
+│   ├── app.py                  # Streamlit app entry
+│   ├── auth.py                 # Login/Signup handlers
+│   ├── dashboard.py            # Dashboard with charts
+│   ├── search.py               # Search form UI
+│   ├── leads_table.py          # Leads view and export
+│   ├── logs_table.py           # Logs viewer
+│   ├── config.py               # API config
+│   └── utils.py                # Helpers
+├── requirements.txt            # All Python dependencies
+└── README.md                   # You're here!
 ```
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Installation & Running the Platform
 
 ```bash
-# Clone the repository
+# Clone the repo
 git clone https://github.com/yourusername/Agentic-Search-Platform.git
 cd Agentic-Search-Platform
 
 # Create and activate virtual environment
 python -m venv venv
-source venv/bin/activate       # On Windows: venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
+# On Windows
+venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the FastAPI server
+# Run backend
 uvicorn backend.main:app --reload
+
+# In a separate terminal, run frontend
+cd frontend
+streamlit run app.py
 ```
+
+---
+
+## 🌍 Accessing the App
+
+- FastAPI docs: http://127.0.0.1:8000/docs  
+- Streamlit frontend: http://localhost:8501
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: FastAPI  
+- **Backend**: FastAPI, SQLAlchemy  
+- **Frontend**: Streamlit  
+- **Database**: SQLite / PostgreSQL  
 - **Language**: Python 3.10+  
-- **Database**: PostgreSQL / SQLite (configurable)  
-- **ORM**: SQLAlchemy  
-- **Agents**: Custom Python logic for Google & LinkedIn scraping/search  
+- **Agents**: Custom scraping for Google + LinkedIn  
 
 ---
 
-## 🧪 Setup Instructions
+## 🔐 Environment Variables
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/Agentic-Search-Platform.git
-   cd Agentic-Search-Platform
-   ```
+Create a `.env` file in the `backend/` directory with the following:
 
-2. Set up your environment and dependencies:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
-
-3. Launch the development server:
-   ```bash
-   uvicorn backend.main:app --reload
-   ```
-
-4. Open your browser and go to:
-   ```
-   http://127.0.0.1:8000/docs
-   ```
+```
+DATABASE_URL=postgresql://user:pass@localhost:5432/agentic_db
+SECRET_KEY=your_jwt_secret
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+SERPAPI_KEY=your_serpapi_key
+MAILBOXLAYER_KEY=your_mailboxlayer_key
+```
 
 ---
-
-
-### Explanation of Environment Variables and How to Get Them:
-
-- `DATABASE_URL`:  
-  The connection string for your PostgreSQL database.  
-  Format example:  
-  `postgresql://username:password@localhost:5432/agentic_db`  
-  Replace `username`, `password`, `host`, `port`, and `database_name` according to your database setup.
-
-- `SECRET_KEY`:  
-  A secret key used to sign JWT tokens securely.  
-  Make sure to generate a strong, random key (e.g., using `openssl rand -hex 32`).
-
-- `ALGORITHM`:  
-  The algorithm used to sign JWT tokens. Usually `HS256`.
-
-- `ACCESS_TOKEN_EXPIRE_MINUTES`:  
-  The expiry time for access tokens in minutes.
-
-- `SERPAPI_KEY`:  
-  API key for accessing Google Search via [SerpAPI](https://serpapi.com/).  
-  You can create a free or paid account on SerpAPI and get your API key from their dashboard.
-
-- `MAILBOXLAYER_KEY`:  
-  API key for email verification service via [MailboxLayer](https://mailboxlayer.com/).  
-  Register on MailboxLayer and obtain your API key from their dashboard.
-
----
-
-### Security Recommendations:
-
-- Never commit your `.env` file to public repositories.  
-- Add `.env` to your `.gitignore` file to avoid accidental commits.  
-- Consider creating a `.env.example` file without real keys to share variable names with collaborators.
-
-
 
 ## ✅ API Documentation
 
-FastAPI automatically generates Swagger UI:
+FastAPI generates docs automatically:
 
-- Interactive docs: `http://127.0.0.1:8000/docs`
-- ReDoc docs: `http://127.0.0.1:8000/redoc`
+- Swagger UI: `http://127.0.0.1:8000/docs`  
+- ReDoc: `http://127.0.0.1:8000/redoc`
+
+---
+
+## 📊 Dashboard Includes
+
+- ✅ Total Searches  
+- ✅ Total Leads  
+- ✅ Top 10 Searched Keywords  
+- ✅ Top 10 Services  
+- ✅ Top 10 Industries  
+- ✅ Top 10 Locations  
+- ✅ Sortable views for Leads & Logs  
 
 ---
 
 ## 📌 Future Enhancements
 
 - [ ] Docker support  
-- [ ] MongoDB integration  
-- [ ] Frontend in React/Next.js  
+- [ ] React-based frontend  
 - [ ] OAuth for LinkedIn login  
-- [ ] Dashboard with charts for admin  
+- [ ] Admin analytics page  
+- [ ] MongoDB support  
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. Open an issue first to discuss what you’d like to change.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.  
-See the [LICENSE](LICENSE) file for more information.
+Licensed under the **MIT License**.  
+See [LICENSE](LICENSE) for more details.

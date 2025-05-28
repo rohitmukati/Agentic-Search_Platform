@@ -3,13 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from backend.database import Base, engine
 from backend.models import User, Lead, SearchLog
-from backend.routes import search_logs
-from backend.routes import search
-
-from backend.routes import auth
-
-from backend.routes import leads
-
+from backend.routes import auth, leads, search_logs, search
 
 # Importing the models to create the tables in the database
 app = FastAPI()
@@ -21,10 +15,10 @@ Base.metadata.create_all(bind=engine)
 def health_check():
     return {"status": "ok"}
 
-# CORS Middleware
+# CORS Middleware — allow only Streamlit default origin
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:8501"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,7 +29,7 @@ app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(leads.router, prefix="/api/leads", tags=["Leads"])
 app.include_router(search_logs.router, prefix="/api/searchlogs", tags=["Search Logs"])
 app.include_router(search.router, prefix="/api/search", tags=["Search"])
-
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 
 
 # ✅ Swagger Auth: Add Bearer token support in Swagger UI
@@ -68,5 +62,5 @@ def custom_openapi():
 # Set custom OpenAPI function
 app.openapi = custom_openapi
 
-
+## To run:
 # uvicorn backend.main:app --reload

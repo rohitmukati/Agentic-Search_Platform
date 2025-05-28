@@ -67,8 +67,8 @@ def get_search_analytics(
 
     return {
         "total_searches": len(logs),
-        "top_keywords": Counter(keywords).most_common(3),
-        "top_industries": Counter(industries).most_common(3),
-        "top_countries": Counter(countries).most_common(3),
-        "top_services": Counter(services).most_common(3)
+        "top_keywords": Counter(keywords).most_common(10),
+        "top_industries": Counter(industries).most_common(10),
+        "top_countries": Counter(countries).most_common(10),
+        "top_services": Counter(services).most_common(10)
     }
