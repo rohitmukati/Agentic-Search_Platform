@@ -1,28 +1,47 @@
+# ----------- FastAPI Core -----------
 fastapi
 uvicorn
-sqlalchemy
-psycopg2-binary
 
-pydantic
-python-multipart
+# ----------- Database & ORM -----------
+sqlalchemy
+psycopg2-binary  # PostgreSQL driver
+
+# ----------- Data Validation & Auth -----------
+pydantic[email]
+email-validator
+passlib[bcrypt]
+python-jose[cryptography]
+bcrypt
 python-dotenv
+
+# ----------- File Upload & Parsing -----------
+python-multipart
+aiofiles
+
+# ----------- Data Handling & Export -----------
 pandas
 openpyxl
-email-validator
-pydantic[email]
-passlib[bcrypt]
-python-jose
 
-bcrypt
-# ✅ CORRECT SerpAPI SDK (Only this one)
-google-search-results
+# ----------- Frontend (if Streamlit is used) -----------
+streamlit
+matplotlib  # for pie charts and plots
+seaborn     # optional, if used for visualization styling
 
-# ✅ Optional but useful additions
-httpx
-aiofiles
-jinja2
-itsdangerous
-langchain
-langchain_community
+# ----------- External Search & LLMs -----------
+google-search-results  # ✅ SerpAPI SDK
 openai
 google-generativeai
+
+# ----------- Langchain Ecosystem -----------
+langchain
+langchain_community
+
+# ----------- API & Utility -----------
+httpx
+jinja2
+itsdangerous
+uuid  # Usually standard, no need in requirements unless it's an external lib (not here)
+
+# ----------- Optional Dev/Debug Tools -----------
+ipython         # For interactive shell (optional)
+rich            # For nice terminal logging

@@ -8,11 +8,15 @@ An AI-powered lead generation platform using **FastAPI** and **Streamlit** — e
 
 - 🔐 **Authentication** – Secure signup/login with JWT tokens  
 - 🔍 **Agentic Search** – Autonomous agents for intelligent lead queries  
-- 🧠 **Multi-platform Search** – Google + LinkedIn scraping supported  
-- 📊 **Interactive Dashboard** – Visualize top searches, services, industries, and more  
-- 📥 **Leads Table** – Sortable leads view with CSV export  
-- 📄 **Logs** – Track search queries with timestamps  
-- 📎 **CSV Export** – Export search results instantly  
+- 🌐 **Multi-platform Search** – Google + LinkedIn scraping  
+- 📊 **Admin Dashboard** – Full user & search analytics (with delete + insights)  
+- 📥 **Leads Table** – Sort + export collected leads with 1 click  
+- 🧾 **Search Logs** – Timestamped user search history  
+- 👨‍💼 **User Management** – Admin can view/delete users and track top performers  
+- 🖼️ **Visual Insights** – Pie charts for industries, services, locations  
+- 🖥️ **Streamlit UI** – Clean, responsive frontend with expanding sections  
+- 🧠 **LLM Ready** – Google Gemini, OpenAI, LangChain integrated  
+- 📎 **Export** – One-click CSV export for leads    
 - 🖥️ **Frontend Interface** – Built with Streamlit for a minimal & responsive UI  
 
 ---
@@ -119,39 +123,46 @@ FastAPI generates docs automatically:
 
 ---
 
-## 📊 Dashboard Includes
+## 📊 Admin Dashboard Includes
 
-- ✅ Total Searches  
-- ✅ Total Leads  
-- ✅ Top 10 Searched Keywords  
-- ✅ Top 10 Services  
-- ✅ Top 10 Industries  
-- ✅ Top 10 Locations  
-- ✅ Sortable views for Leads & Logs  
+📊 Admin Dashboard Includes
+
+- 👤 Total Users
+- 🧠 Total Searches
+- 🧾 Total Leads
+- 🏆 Top 10 Users (by search activity)
+- 🏭 Top Industries (Pie chart)
+- 🛠️ Top Services (Pie chart)
+- 🌍 Top Locations (Pie chart)
+- 🧹 Delete users + all their data
+- 🔐 Admin-only access and controls
+
+
 
 ---
+
 ## 📸 Screenshots
 
-### 🔐 Login Page
-<img src="assets/login_signup.png" width="600"/>
+### images Folder Path
+## 📸 Screenshots
 
-### 📊 Dashboard Overview
-<img src="assets/Dashboard1.png" width="600"/>
+All screenshots used in this README are stored in the `assets/` folder.
 
-### 🧠 Agentic Search Form
-<img src="assets/Search.png" width="600"/>
+- 🔐 [Login Page](assets/login_signup.png)  
+- 📊 [Dashboard Overview](assets/Dashboard1.png)  
+- 🧠 [Agentic Search Form](assets/Search.png)  
+- 📥 [Leads Table with Sorting & Export](assets/Leads.png)  
 
-### 📥 Leads Table with Sorting & Export
-<img src="assets/Leads.png" width="600"/>
 
 ---
 ## 📌 Future Enhancements
 
-- [ ] Docker support  
-- [ ] React-based frontend  
-- [ ] OAuth for LinkedIn login  
-- [ ] Admin analytics page  
-- [ ] MongoDB support  
+- Docker support
+- OAuth (Google/LinkedIn login)
+- Admin analytics PDF export
+- Role-based permissions
+- MongoDB / NoSQL support
+- React frontend
 
 ---
 
