@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Text
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Text, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime
@@ -12,6 +12,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+    is_admin = Column(Boolean, default=False)  # <— new field
 
 class Lead(Base):
     __tablename__ = "leads"
@@ -42,3 +43,5 @@ class SearchLog(Base):
     # Optional: Define any configurations here if required in future
     class Config:
         orm_mode = True
+            
+

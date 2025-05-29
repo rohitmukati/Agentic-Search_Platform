@@ -94,6 +94,7 @@ class UserOut(BaseModel):
     name: str
     email: EmailStr
     created_at: datetime
+    is_admin: bool
 
     @field_serializer("id")
     def serialize_id(self, v: UUID) -> str:
