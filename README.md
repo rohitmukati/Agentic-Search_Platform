@@ -3,7 +3,7 @@
 An AI-powered lead generation platform using **FastAPI** and **Streamlit** — extract, validate, search, and analyze leads from Google & LinkedIn with visual insights and downloadable reports.
 
 ---
-
+   
 ## 🚀 Features
 
 - 🔐 **Authentication** – Secure signup/login with JWT tokens  
